@@ -1,0 +1,27 @@
+# Polynomial Regression(https://colab.research.google.com/drive/1gguIFWl-Du66gz9k4dYSPvjzmSIGNuMd - collab notebook link)
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+dataset = pd.read_csv('train.csv')
+dataset.pop('DTS')
+print(dataset)
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, -1].values
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 1)
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+poly_reg = PolynomialFeatures(degree = 10)
+X_poly = poly_reg.fit_transform(X_train)
+lin_reg_2 = LinearRegression()
+lin_reg_2.fit(X_poly, y_train)
+lin_reg_2.predict(poly_reg.fit_transform([[1,       1,       12,       0,       0,       0,      1,       0.255833,
+ 0.2317, 0.483333 ,0.350754]]))
+predicted=lin_reg_2.predict(poly_reg.fit_transform(X_test))
+con = np.concatenate((predicted,y_test))
+arr=[]
+for i in range(0,len(predicted),1):
+ arr = np.append(arr,round(con[i]))
+ arr = np.append(arr,con[i+len(predicted)])
+arr.shape = (-1, 2)
+print(arr)
