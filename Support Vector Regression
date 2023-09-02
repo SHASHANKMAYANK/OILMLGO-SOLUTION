@@ -1,0 +1,30 @@
+# SUPPORT VECTOR REGRESSION(https://colab.research.google.com/drive/1IXw_y2ZIe4b8pKKHRsgXz0EJ4_OSjD4z#scrollTo=VuSMv1KgAFJc-Collab notebook link)
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+dataset = pd.read_csv('train.csv')
+dataset.pop('DTS')
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, -1].values
+y = y.reshape(len(y),1)
+from sklearn.preprocessing import StandardScaler
+sc_X = StandardScaler()
+sc_y = StandardScaler()
+X = sc_X.fit_transform(X)
+y = sc_y.fit_transform(y)
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 1)
+from sklearn.svm import SVR
+regressor = SVR(kernel = 'rbf')
+regressor.fit(X_train, y_train)
+predicted=(regressor.predict(sc_X.transform(X_test)).reshape(-1,1))
+result2 = predicted.flatten()
+print(result2)
+
+con = np.concatenate((y__test.flatten(),result2))
+arr=[]
+for i in range(0,len(result2),1):
+ arr = np.append(arr,round(con[i]))
+ arr = np.append(arr,con[i+len(result2)])
+arr.shape = (-1, 2)
+print(arr)
