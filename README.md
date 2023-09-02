@@ -13,3 +13,12 @@ Problem Statement------
 
 Compressional travel-time (DTC) log is not acquired in all the wells drilled in a field due to operational constraints. Under such circumstances, machine learning techniques can be used to predict DTC log to improve subsurface characterization. The goal is to develop data-driven models by processing  conventional logs from a Well  and use the data-driven models to generate synthetic compressional and shear travel-time logs (DTC respectively) in another Well. A robust data-driven model for the desired sonic-log synthesis will result in low prediction errors, which can be quantified in terms of Root Mean Squared Error(RMSE) by comparing the synthesized and the original DTC log.
 You will be provided with  dataset of a Well. You need to build a model using given dataset.The model should use feature sets derived from the following seven logs: Caliper, Neutron, Gamma Ray, Deep Resistivity, Medium Resistivity, Photo-electric factor and density. The  model should synthesize two target logs: DTC log.
+
+# SOLUTION
+As this is a problem statement of regression I have used 4 regresssion models namely
+1.Polynomial Regression
+2.Support Vector Regression
+3.Decision Tree Regression
+4.Random Forest Regression
+After that I have applied the training data on all these models using scikitlearn and compared the results of DTC logs from actual measurements and the results I have got after applying the models.
+Decision Tree regression and Random Forest regression gave better results for training data after that I have predicted the results for test data with the help of these two models.
