@@ -1,0 +1,25 @@
+#Decision Tree Regression(https://colab.research.google.com/drive/1XpEWLzN2X1Oni6BeiQRKggffGsotThId#scrollTo=pJ_W-fus8kw3 - Collab notebook link)
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+dataset = pd.read_csv('train.csv')
+dataset.pop('DTS')
+print(dataset)
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, -1].values
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 1)
+from sklearn.tree import DecisionTreeRegressor
+regressor = DecisionTreeRegressor(random_state = 1)
+regressor.fit(X_train, y_train)
+predicted=regressor.predict(X_test)
+print(predicted)
+con = np.concatenate((predicted,y_test))
+arr=[]
+for i in range(0,len(predicted),1):
+ arr = np.append(arr,round(con[i]))
+ arr = np.append(arr,con[i+len(predicted)])
+arr.shape = (-1, 2)
+dataset = pd.read_csv('test.csv')
+predict=regressor.predict(dataset)
+print(predict)
